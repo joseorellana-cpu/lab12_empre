@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createExam, deleteExam, describeError, listExams } from "./api";
 
 export default function useExams() {
@@ -7,6 +7,8 @@ export default function useExams() {
   const [error, setError] = useState(null);
   const [actionError, setActionError] = useState(null);
   const [attempt, setAttempt] = useState(0);
+  const [saving, setSaving] = useState(false);
+  const inFlight = useRef(false); // Fix 4: double-submit guard (a ref changes at once; a state would be too late)
 
   useEffect(() => {
     // Fix 3: cleanup. The effect aborts its request and ignores a late answer (reload, StrictMode, unmount).
@@ -45,6 +47,10 @@ export default function useExams() {
   }, []);
 
   const create = useCallback(async (title) => {
+    if (inFlight.current) return false;
+    inFlight.current = true;
+    setSaving(true);
+    setActionError(null);
     try {
       const exam = await createExam(title);
       setExams((current) => [...current, exam]);
@@ -52,8 +58,11 @@ export default function useExams() {
     } catch (err) {
       setActionError(describeError(err));
       return false;
+    } finally {
+      inFlight.current = false;
+      setSaving(false);
     }
   }, []);
 
-  return { status, exams, error, actionError, saving: false, reload, remove, create };
+  return { status, exams, error, actionError, saving, reload, remove, create };
 }
