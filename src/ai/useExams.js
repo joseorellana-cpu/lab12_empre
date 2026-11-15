@@ -38,8 +38,12 @@ export default function useExams() {
   const reload = useCallback(() => setAttempt((n) => n + 1), []);
 
   const remove = useCallback(async (id) => {
+    setActionError(null);
     try {
       await deleteExam(id);
+      // Fix 5: when the server confirms, the row leaves the list (local filter, no reload).
+      setExams((current) => current.filter((exam) => exam.id !== id));
+      return true;
     } catch (err) {
       setActionError(describeError(err));
       return false;
