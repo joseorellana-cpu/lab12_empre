@@ -1,0 +1,764 @@
+
+> dae-s12-servicios-web-con-react@0.1.0 test
+> vitest run --mode team --reporter=verbose
+
+
+ RUN  v3.2.7 C:/cuarto ciclo/Labs empre/dae-s12-servicios-web-con-react
+
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > list --json imprime el arreglo de cuestionarios y sale con 0 48ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > list sin --json imprime una línea por cuestionario 13ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > la dirección también puede venir de EXAMS_API_URL 8ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > create --json crea el cuestionario y lo devuelve 7ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > create con un título vacío sale con 4 y dice lo que dijo la API 14ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > delete sin --yes no borra nada y sale con 8 2ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > delete 1 --yes lo borra; repetirlo sale con 5 (ya no existe) 9ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > con el servidor apagado sale con 3, sin pantalla en blanco ni traza de pila 8ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > un comando desconocido o sin argumentos sale con 2 y muestra el uso 2ms
+ ✓ src/test/cli.test.js > examctl · cors-check mira la política desde fuera > el origen del proyecto está autorizado: sale con 0 6ms
+ ✓ src/test/cli.test.js > examctl · cors-check mira la política desde fuera > un origen ajeno no recibe la cabecera: sale con 7 5ms
+ ✓ src/test/cli.test.js > examctl · cors-check mira la política desde fuera > una API con el comodín acepta cualquier origen: sale con 9 7ms
+ ✓ src/test/cli.test.js > examctl · como proceso > node cli/examctl.mjs list --json imprime JSON en stdout y termina con código 0 395ms
+ ✓ src/test/cli.test.js > examctl · como proceso > y con el servidor apagado termina con código 3 349ms
+ × src/test/api.test.js > api · el cliente está configurado en un solo sitio > es una instancia de Axios con la dirección base de la API, sin barra final 7ms
+   → .toMatch() expects to receive a string, but got undefined
+ × src/test/api.test.js > api · el cliente está configurado en un solo sitio > tiene un tiempo de espera máximo 2ms
+   → expected 0 to be greater than 0
+ × src/test/api.test.js > api · el cliente está configurado en un solo sitio > todas las llamadas salen hacia la dirección base (cambiarla las mueve a todas) 1ms
+   → TODO: listExams
+ × src/test/api.test.js > api · listExams, createExam y deleteExam > listExams hace GET /exams/ (con la barra final) y devuelve el arreglo, no la respuesta 0ms
+   → TODO: listExams
+ × src/test/api.test.js > api · listExams, createExam y deleteExam > listExams entrega la señal a Axios: al abortar, la petición se cancela 0ms
+   → TODO: listExams
+ × src/test/api.test.js > api · listExams, createExam y deleteExam > createExam hace POST /exams/ con { title } y devuelve el cuestionario creado 0ms
+   → TODO: createExam
+ × src/test/api.test.js > api · listExams, createExam y deleteExam > deleteExam hace DELETE /exams/<id>/ y no devuelve nada 0ms
+   → TODO: deleteExam
+ × src/test/api.test.js > api · listExams, createExam y deleteExam > un título vacío rechaza con el 400 de la API (el cliente no lo oculta) 0ms
+   → TODO: createExam
+ × src/test/api.test.js > api · describeError > sin conexión (o CORS): dice que no pudo conectar y menciona el servidor y CORS 1ms
+   → TODO: listExams
+ × src/test/api.test.js > api · describeError > tiempo agotado: dice que tardó demasiado 2ms
+   → expected 'TODO' to match /tard/i
+ × src/test/api.test.js > api · describeError > 400: muestra el mensaje de la API para el campo 1ms
+   → TODO: createExam
+ × src/test/api.test.js > api · describeError > 404: dice que el recurso ya no existe 0ms
+   → TODO: deleteExam
+ × src/test/api.test.js > api · describeError > 500: incluye el número del estado 0ms
+   → TODO: listExams
+ × src/test/api.test.js > api · describeError > un error cualquiera da una frase, nunca una cadena vacía 0ms
+   → expected 4 to be greater than 10
+ × src/test/cors.test.js > cors · la política de la API > autoriza el origen del proyecto, http://localhost:5173 13ms
+   → expected false to be true // Object.is equality
+ ✓ src/test/cors.test.js > cors · la política de la API > no usa el comodín: ninguna entrada es «*» 1ms
+ ✓ src/test/cors.test.js > cors · la política de la API > cada origen es esquema + host + puerto, sin barra final 0ms
+ ✓ src/test/cors.test.js > cors · la política de la API > un sitio ajeno queda fuera 0ms
+ ✓ src/test/cors.test.js > cors · la política de la API > otro puerto del mismo equipo también queda fuera (el origen incluye el puerto) 0ms
+ ✓ src/test/cors.test.js > cors · la política de la API > no mezcla credenciales con orígenes abiertos 0ms
+ × src/test/cors.test.js > cors · lo que ve la página (red simulada) > desde el origen del proyecto la petición llega y devuelve los cuestionarios 2ms
+   → TODO: listExams
+ × src/test/cors.test.js > cors · lo que ve la página (red simulada) > desde un origen ajeno el navegador la bloquea: solo se ve «Network Error», sin respuesta 1ms
+   → TODO: listExams
+ × src/test/useExams.test.jsx > useExams · los tres estados de la petición > empieza en loading, sin datos ni error, y pide GET /exams/ una vez 34ms
+   → expected [] to have a length of 1 but got +0
+ × src/test/useExams.test.jsx > useExams · los tres estados de la petición > cuando llegan los datos pasa a ready con los cuestionarios 3ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/useExams.test.jsx > useExams · los tres estados de la petición > si la API responde 500 pasa a error, con una frase que dice el estado, y sin datos 3ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/useExams.test.jsx > useExams · los tres estados de la petición > si el servidor está apagado (o CORS bloquea) pasa a error y lo explica 3ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/useExams.test.jsx > useExams · los tres estados de la petición > reload vuelve a loading, pide otra vez y muestra lo nuevo 3ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/useExams.test.jsx > useExams · los tres estados de la petición > reload después de un error: error, loading y ready 2ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > al desmontar aborta la petición en vuelo 2ms
+   → Cannot read properties of undefined (reading 'aborted')
+ × src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > al pedir otra vez (reload) aborta la petición anterior 2ms
+   → Cannot read properties of undefined (reading 'aborted')
+ × src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > si la primera respuesta llega DESPUÉS de la segunda, no pisa a la nueva 2ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > si la respuesta llega después de desmontar, no pasa nada (ni avisos en la consola) 3ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > con StrictMode (el efecto corre dos veces) solo queda viva una petición y la pantalla acaba bien 3ms
+   → expected 0 to be greater than or equal to 2
+ × src/test/useExams.test.jsx > useExams · borrar > remove(id) hace DELETE y el cuestionario desaparece de la lista sin recargar 1ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/useExams.test.jsx > useExams · borrar > si la API falla (500), la fila se queda, se explica el error y remove devuelve false 1ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/useExams.test.jsx > useExams · crear > create(title) hace POST y añade el cuestionario creado al final 1ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/useExams.test.jsx > useExams · crear > mientras el POST está en vuelo saving es true, y vuelve a false al terminar 1ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/useExams.test.jsx > useExams · crear > dos create seguidos, con el primero en vuelo, envían un solo POST 1ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/useExams.test.jsx > useExams · crear > un título vacío: la API responde 400, se muestra su mensaje y la lista no cambia 1ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/useExams.test.jsx > useExams · crear > después de un error se puede volver a crear (saving no se queda atascado) 1ms
+   → Cannot read properties of undefined (reading 'release')
+ ✓ src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > cargando: un aviso de estado y ni tabla ni error 88ms
+ × src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > con datos: una fila por cuestionario y el aviso de carga desaparece 11ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > con datos vacíos: dice que todavía no hay cuestionarios 5ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > con la API caída (500): una alerta con el mensaje y el botón Reintentar, no una lista vacía 5ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > con el servidor apagado: la alerta lo dice, y Reintentar vuelve a cargar y muestra los datos 5ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/ExamList.test.jsx > ExamList · borrar y crear > Eliminar quita la fila sin recargar la página 4ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/ExamList.test.jsx > ExamList · borrar y crear > si Eliminar falla: la fila sigue y una alerta explica el error 2ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/ExamList.test.jsx > ExamList · borrar y crear > Agregar crea el cuestionario, lo muestra y vacía el campo 2ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/ExamList.test.jsx > ExamList · borrar y crear > un doble clic en Agregar envía un solo POST y el botón se desactiva mientras espera 3ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/ExamList.test.jsx > ExamList · borrar y crear > con el título vacío se muestra el mensaje de la API, no una pantalla muda 3ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/App.test.jsx > App · la pantalla completa con la red simulada > dibuja el título y, tras la carga, la lista de cuestionarios 116ms
+   → Cannot read properties of undefined (reading 'release')
+ × src/test/App.test.jsx > App · la pantalla completa con la red simulada > con el servidor apagado la pantalla muestra el error; al encenderlo y Reintentar, vuelven los datos 6ms
+   → Cannot read properties of undefined (reading 'release')
+ ✓ src/test/App.test.jsx > App · la pantalla completa con la red simulada > sin red simulada (API real) no aparece el panel 6ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 46 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/test/api.test.js > api · el cliente está configurado en un solo sitio > es una instancia de Axios con la dirección base de la API, sin barra final
+TypeError: .toMatch() expects to receive a string, but got undefined
+ ❯ src/test/api.test.js:19:34
+     17| describe("api · el cliente está configurado en un solo sitio", () => {
+     18|   it("es una instancia de Axios con la dirección base de la API, sin b…
+     19|     expect(api.defaults.baseURL).toMatch(/^https?:\/\/[^/]+(\/[a-z]+)*…
+       |                                  ^
+     20|     expect(api.defaults.baseURL).toContain("/api");
+     21|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/46]⎯
+
+ FAIL  src/test/api.test.js > api · el cliente está configurado en un solo sitio > tiene un tiempo de espera máximo
+AssertionError: expected 0 to be greater than 0
+ ❯ src/test/api.test.js:24:34
+     22| 
+     23|   it("tiene un tiempo de espera máximo", () => {
+     24|     expect(api.defaults.timeout).toBeGreaterThan(0);
+       |                                  ^
+     25|   });
+     26| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/46]⎯
+
+ FAIL  src/test/api.test.js > api · el cliente está configurado en un solo sitio > todas las llamadas salen hacia la dirección base (cambiarla las mueve a todas)
+Error: TODO: listExams
+ ❯ listExams src/client/api.js:16:9
+     14| /** TODO 3: GET /exams/ -> the array of exams (response.data, not the …
+     15| export function listExams({ signal } = {}) {
+     16|   throw new Error("TODO: listExams");
+       |         ^
+     17| }
+     18| 
+ ❯ src/test/api.test.js:31:31
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/46]⎯
+
+ FAIL  src/test/api.test.js > api · listExams, createExam y deleteExam > listExams hace GET /exams/ (con la barra final) y devuelve el arreglo, no la respuesta
+Error: TODO: listExams
+ ❯ listExams src/client/api.js:16:9
+     14| /** TODO 3: GET /exams/ -> the array of exams (response.data, not the …
+     15| export function listExams({ signal } = {}) {
+     16|   throw new Error("TODO: listExams");
+       |         ^
+     17| }
+     18| 
+ ❯ src/test/api.test.js:43:43
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/46]⎯
+
+ FAIL  src/test/api.test.js > api · listExams, createExam y deleteExam > listExams entrega la señal a Axios: al abortar, la petición se cancela
+Error: TODO: listExams
+ ❯ listExams src/client/api.js:16:9
+     14| /** TODO 3: GET /exams/ -> the array of exams (response.data, not the …
+     15| export function listExams({ signal } = {}) {
+     16|   throw new Error("TODO: listExams");
+       |         ^
+     17| }
+     18| 
+ ❯ src/test/api.test.js:53:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/46]⎯
+
+ FAIL  src/test/api.test.js > api · listExams, createExam y deleteExam > createExam hace POST /exams/ con { title } y devuelve el cuestionario creado
+Error: TODO: createExam
+ ❯ createExam src/client/api.js:21:9
+     19| /** TODO 4: POST /exams/ with { title } -> the exam the server created…
+     20| export function createExam(title) {
+     21|   throw new Error("TODO: createExam");
+       |         ^
+     22| }
+     23| 
+ ❯ src/test/api.test.js:62:46
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/46]⎯
+
+ FAIL  src/test/api.test.js > api · listExams, createExam y deleteExam > deleteExam hace DELETE /exams/<id>/ y no devuelve nada
+Error: TODO: deleteExam
+ ❯ deleteExam src/client/api.js:26:9
+     24| /** TODO 5: DELETE /exams/<id>/ -> resolves with undefined. The API's …
+     25| export function deleteExam(id) {
+     26|   throw new Error("TODO: deleteExam");
+       |         ^
+     27| }
+     28| 
+ ❯ src/test/api.test.js:69:45
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/46]⎯
+
+ FAIL  src/test/api.test.js > api · listExams, createExam y deleteExam > un título vacío rechaza con el 400 de la API (el cliente no lo oculta)
+Error: TODO: createExam
+ ❯ createExam src/client/api.js:21:9
+     19| /** TODO 4: POST /exams/ with { title } -> the exam the server created…
+     20| export function createExam(title) {
+     21|   throw new Error("TODO: createExam");
+       |         ^
+     22| }
+     23| 
+ ❯ src/test/api.test.js:77:40
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/46]⎯
+
+ FAIL  src/test/api.test.js > api · describeError > sin conexión (o CORS): dice que no pudo conectar y menciona el servidor y CORS
+Error: TODO: listExams
+ ❯ listExams src/client/api.js:16:9
+     14| /** TODO 3: GET /exams/ -> the array of exams (response.data, not the …
+     15| export function listExams({ signal } = {}) {
+     16|   throw new Error("TODO: listExams");
+       |         ^
+     17| }
+     18| 
+ ❯ src/test/api.test.js:95:64
+ ❯ failure src/test/api.test.js:88:21
+ ❯ src/test/api.test.js:95:41
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/46]⎯
+
+ FAIL  src/test/api.test.js > api · describeError > tiempo agotado: dice que tardó demasiado
+AssertionError: expected 'TODO' to match /tard/i
+
+- Expected: 
+/tard/i
+
++ Received: 
+"TODO"
+
+ ❯ src/test/api.test.js:103:34
+    101|   it("tiempo agotado: dice que tardó demasiado", () => {
+    102|     const error = Object.assign(new Error("timeout of 8000ms exceeded"…
+    103|     expect(describeError(error)).toMatch(/tard/i);
+       |                                  ^
+    104|   });
+    105| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/46]⎯
+
+ FAIL  src/test/api.test.js > api · describeError > 400: muestra el mensaje de la API para el campo
+Error: TODO: createExam
+ ❯ createExam src/client/api.js:21:9
+     19| /** TODO 4: POST /exams/ with { title } -> the exam the server created…
+     20| export function createExam(title) {
+     21|   throw new Error("TODO: createExam");
+       |         ^
+     22| }
+     23| 
+ ❯ src/test/api.test.js:107:65
+ ❯ failure src/test/api.test.js:88:21
+ ❯ src/test/api.test.js:107:41
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/46]⎯
+
+ FAIL  src/test/api.test.js > api · describeError > 404: dice que el recurso ya no existe
+Error: TODO: deleteExam
+ ❯ deleteExam src/client/api.js:26:9
+     24| /** TODO 5: DELETE /exams/<id>/ -> resolves with undefined. The API's …
+     25| export function deleteExam(id) {
+     26|   throw new Error("TODO: deleteExam");
+       |         ^
+     27| }
+     28| 
+ ❯ src/test/api.test.js:113:56
+ ❯ failure src/test/api.test.js:88:21
+ ❯ src/test/api.test.js:113:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/46]⎯
+
+ FAIL  src/test/api.test.js > api · describeError > 500: incluye el número del estado
+Error: TODO: listExams
+ ❯ listExams src/client/api.js:16:9
+     14| /** TODO 3: GET /exams/ -> the array of exams (response.data, not the …
+     15| export function listExams({ signal } = {}) {
+     16|   throw new Error("TODO: listExams");
+       |         ^
+     17| }
+     18| 
+ ❯ src/test/api.test.js:117:55
+ ❯ failure src/test/api.test.js:88:21
+ ❯ src/test/api.test.js:117:32
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/46]⎯
+
+ FAIL  src/test/api.test.js > api · describeError > un error cualquiera da una frase, nunca una cadena vacía
+AssertionError: expected 4 to be greater than 10
+ ❯ src/test/api.test.js:121:58
+    119| 
+    120|   it("un error cualquiera da una frase, nunca una cadena vacía", () =>…
+    121|     expect(describeError(new Error("algo raro")).length).toBeGreaterTh…
+       |                                                          ^
+    122|     expect(describeError(undefined).length).toBeGreaterThan(10);
+    123|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/46]⎯
+
+ FAIL  src/test/App.test.jsx > App · la pantalla completa con la red simulada > dibuja el título y, tras la carga, la lista de cuestionarios
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ src/test/App.test.jsx:11:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/46]⎯
+
+ FAIL  src/test/App.test.jsx > App · la pantalla completa con la red simulada > con el servidor apagado la pantalla muestra el error; al encenderlo y Reintentar, vuelven los datos
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ src/test/App.test.jsx:19:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/46]⎯
+
+ FAIL  src/test/cors.test.js > cors · la política de la API > autoriza el origen del proyecto, http://localhost:5173
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/test/cors.test.js:9:59
+      7| describe("cors · la política de la API", () => {
+      8|   it("autoriza el origen del proyecto, http://localhost:5173", () => {
+      9|     expect(checkCors(PROJECT_ORIGIN, corsPolicy).allowed).toBe(true);
+       |                                                           ^
+     10|   });
+     11| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/46]⎯
+
+ FAIL  src/test/cors.test.js > cors · lo que ve la página (red simulada) > desde el origen del proyecto la petición llega y devuelve los cuestionarios
+Error: TODO: listExams
+ ❯ listExams src/client/api.js:16:9
+     14| /** TODO 3: GET /exams/ -> the array of exams (response.data, not the …
+     15| export function listExams({ signal } = {}) {
+     16|   throw new Error("TODO: listExams");
+       |         ^
+     17| }
+     18| 
+ ❯ callFrom src/test/cors.test.js:37:30
+ ❯ src/test/cors.test.js:47:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/46]⎯
+
+ FAIL  src/test/cors.test.js > cors · lo que ve la página (red simulada) > desde un origen ajeno el navegador la bloquea: solo se ve «Network Error», sin respuesta
+Error: TODO: listExams
+ ❯ listExams src/client/api.js:16:9
+     14| /** TODO 3: GET /exams/ -> the array of exams (response.data, not the …
+     15| export function listExams({ signal } = {}) {
+     16|   throw new Error("TODO: listExams");
+       |         ^
+     17| }
+     18| 
+ ❯ callFrom src/test/cors.test.js:37:30
+ ❯ src/test/cors.test.js:53:39
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/46]⎯
+
+ FAIL  src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > con datos: una fila por cuestionario y el aviso de carga desaparece
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ renderReady src/test/ExamList.test.jsx:13:9
+ ❯ src/test/ExamList.test.jsx:26:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/46]⎯
+
+ FAIL  src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > con datos vacíos: dice que todavía no hay cuestionarios
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ src/test/ExamList.test.jsx:35:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/46]⎯
+
+ FAIL  src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > con la API caída (500): una alerta con el mensaje y el botón Reintentar, no una lista vacía
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ src/test/ExamList.test.jsx:42:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/46]⎯
+
+ FAIL  src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > con el servidor apagado: la alerta lo dice, y Reintentar vuelve a cargar y muestra los datos
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ src/test/ExamList.test.jsx:51:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/46]⎯
+
+ FAIL  src/test/ExamList.test.jsx > ExamList · borrar y crear > Eliminar quita la fila sin recargar la página
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ renderReady src/test/ExamList.test.jsx:13:9
+ ❯ src/test/ExamList.test.jsx:63:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/46]⎯
+
+ FAIL  src/test/ExamList.test.jsx > ExamList · borrar y crear > si Eliminar falla: la fila sigue y una alerta explica el error
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ renderReady src/test/ExamList.test.jsx:13:9
+ ❯ src/test/ExamList.test.jsx:71:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/46]⎯
+
+ FAIL  src/test/ExamList.test.jsx > ExamList · borrar y crear > Agregar crea el cuestionario, lo muestra y vacía el campo
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ renderReady src/test/ExamList.test.jsx:13:9
+ ❯ src/test/ExamList.test.jsx:80:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/46]⎯
+
+ FAIL  src/test/ExamList.test.jsx > ExamList · borrar y crear > un doble clic en Agregar envía un solo POST y el botón se desactiva mientras espera
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ renderReady src/test/ExamList.test.jsx:13:9
+ ❯ src/test/ExamList.test.jsx:89:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/46]⎯
+
+ FAIL  src/test/ExamList.test.jsx > ExamList · borrar y crear > con el título vacío se muestra el mensaje de la API, no una pantalla muda
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ renderReady src/test/ExamList.test.jsx:13:9
+ ❯ src/test/ExamList.test.jsx:101:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · los tres estados de la petición > empieza en loading, sin datos ni error, y pide GET /exams/ una vez
+AssertionError: expected [] to have a length of 1 but got +0
+
+- Expected
++ Received
+
+- 1
++ 0
+
+ ❯ src/test/useExams.test.jsx:23:30
+     21|     const { result } = renderHook(() => useExams());
+     22|     expect(result.current).toMatchObject({ status: "loading", exams: […
+     23|     expect(network.requests).toHaveLength(1);
+       |                              ^
+     24|     expect(network.requests[0]).toMatchObject({ method: "GET" });
+     25|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · los tres estados de la petición > cuando llegan los datos pasa a ready con los cuestionarios
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ mountReady src/test/useExams.test.jsx:14:9
+ ❯ src/test/useExams.test.jsx:28:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · los tres estados de la petición > si la API responde 500 pasa a error, con una frase que dice el estado, y sin datos
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ src/test/useExams.test.jsx:37:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · los tres estados de la petición > si el servidor está apagado (o CORS bloquea) pasa a error y lo explica
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ src/test/useExams.test.jsx:46:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · los tres estados de la petición > reload vuelve a loading, pide otra vez y muestra lo nuevo
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ mountReady src/test/useExams.test.jsx:14:9
+ ❯ src/test/useExams.test.jsx:52:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · los tres estados de la petición > reload después de un error: error, loading y ready
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ src/test/useExams.test.jsx:65:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > al desmontar aborta la petición en vuelo
+TypeError: Cannot read properties of undefined (reading 'aborted')
+ ❯ src/test/useExams.test.jsx:79:32
+     77|   it("al desmontar aborta la petición en vuelo", () => {
+     78|     const { unmount } = renderHook(() => useExams());
+     79|     expect(network.requests[0].aborted).toBe(false);
+       |                                ^
+     80|     unmount();
+     81|     expect(network.requests[0].aborted).toBe(true);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[35/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > al pedir otra vez (reload) aborta la petición anterior
+TypeError: Cannot read properties of undefined (reading 'aborted')
+ ❯ src/test/useExams.test.jsx:87:32
+     85|     const { result } = renderHook(() => useExams());
+     86|     act(() => result.current.reload());
+     87|     expect(network.requests[0].aborted).toBe(true);
+       |                                ^
+     88|     expect(network.requests[1].aborted).toBe(false);
+     89|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[36/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > si la primera respuesta llega DESPUÉS de la segunda, no pisa a la nueva
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ src/test/useExams.test.jsx:96:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[37/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > si la respuesta llega después de desmontar, no pasa nada (ni avisos en la consola)
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ src/test/useExams.test.jsx:108:11
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[38/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > con StrictMode (el efecto corre dos veces) solo queda viva una petición y la pantalla acaba bien
+AssertionError: expected 0 to be greater than or equal to 2
+ ❯ src/test/useExams.test.jsx:115:37
+    113|   it("con StrictMode (el efecto corre dos veces) solo queda viva una p…
+    114|     const { result } = renderHook(() => useExams(), { wrapper: StrictM…
+    115|     expect(network.requests.length).toBeGreaterThanOrEqual(2);
+       |                                     ^
+    116|     expect(network.requests.filter((request) => !request.aborted)).toH…
+    117|     await releaseAll(network);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · borrar > remove(id) hace DELETE y el cuestionario desaparece de la lista sin recargar
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ mountReady src/test/useExams.test.jsx:14:9
+ ❯ src/test/useExams.test.jsx:125:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[40/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · borrar > si la API falla (500), la fila se queda, se explica el error y remove devuelve false
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ mountReady src/test/useExams.test.jsx:14:9
+ ❯ src/test/useExams.test.jsx:138:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[41/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · crear > create(title) hace POST y añade el cuestionario creado al final
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ mountReady src/test/useExams.test.jsx:14:9
+ ❯ src/test/useExams.test.jsx:154:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[42/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · crear > mientras el POST está en vuelo saving es true, y vuelve a false al terminar
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ mountReady src/test/useExams.test.jsx:14:9
+ ❯ src/test/useExams.test.jsx:166:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[43/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · crear > dos create seguidos, con el primero en vuelo, envían un solo POST
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ mountReady src/test/useExams.test.jsx:14:9
+ ❯ src/test/useExams.test.jsx:177:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[44/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · crear > un título vacío: la API responde 400, se muestra su mensaje y la lista no cambia
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ mountReady src/test/useExams.test.jsx:14:9
+ ❯ src/test/useExams.test.jsx:190:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[45/46]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · crear > después de un error se puede volver a crear (saving no se queda atascado)
+TypeError: Cannot read properties of undefined (reading 'release')
+ ❯ release src/test/helpers.js:24:27
+     22| /** Releases the request number `index` (or the last one) and waits fo…
+     23| export async function release(network, index = network.requests.length…
+     24|   network.requests[index].release();
+       |                           ^
+     25|   await settle();
+     26| }
+ ❯ mountReady src/test/useExams.test.jsx:14:9
+ ❯ src/test/useExams.test.jsx:202:30
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[46/46]⎯
+
+
+ Test Files  5 failed | 1 passed (6)
+      Tests  46 failed | 21 passed (67)
+   Start at  16:55:43
+   Duration  2.79s (transform 319ms, setup 1.98s, collect 2.06s, tests 1.24s, environment 5.70s, prepare 1.75s)
+

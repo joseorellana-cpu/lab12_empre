@@ -1,40 +1,53 @@
 // PART 1 - the API client module: the ONLY place that knows the API's address and how its errors look.
 // No component writes a URL by hand; they all call these functions.
-// Run it with:  npm test -- api
 import axios from "axios";
 
-// TODO 1: the base address of the API in one place. `import.meta.env.VITE_API_URL` (a .env.local file) wins when it
-//         exists; otherwise use "http://localhost:8000/api" (no trailing slash).
-export const API_URL = "";
+// The base address in one place. A .env.local with VITE_API_URL wins; otherwise the course API (no trailing slash).
+export const API_URL = import.meta.env?.VITE_API_URL || "http://localhost:8000/api";
 
-// TODO 2: create the Axios instance with `axios.create`: the base URL, a timeout of 8000 ms and the header
-//         Accept: application/json. Tests and `npm run dev` replace its adapter, so it must be a real Axios instance.
-export const api = axios.create({});
+// The one Axios instance: base URL, a timeout so a hung server does not leave the screen loading forever,
+// and JSON as the expected answer.
+export const api = axios.create({
+  baseURL: API_URL,
+  timeout: 8000,
+  headers: { Accept: "application/json" },
+});
 
-/** TODO 3: GET /exams/ -> the array of exams (response.data, not the whole response). Pass the `signal` to Axios. */
+/** GET /exams/ -> the array of exams. The signal lets the caller cancel the request. */
 export function listExams({ signal } = {}) {
-  throw new Error("TODO: listExams");
+  return api.get("/exams/", { signal }).then((response) => response.data);
 }
 
-/** TODO 4: POST /exams/ with { title } -> the exam the server created (response.data). */
+/** POST /exams/ with { title } -> the exam the server created. */
 export function createExam(title) {
-  throw new Error("TODO: createExam");
+  return api.post("/exams/", { title }).then((response) => response.data);
 }
 
-/** TODO 5: DELETE /exams/<id>/ -> resolves with undefined. The API's paths end with a slash. */
+/** DELETE /exams/<id>/ -> undefined. The API's paths end with a slash (as in DRF). */
 export function deleteExam(id) {
-  throw new Error("TODO: deleteExam");
+  return api.delete(`/exams/${id}/`).then(() => undefined);
 }
 
-/**
- * TODO 6: turns anything the client can throw into ONE sentence in Spanish for the person.
- *  - no response and error.code "ERR_NETWORK": cannot connect; mention the server and CORS.
- *  - error.code "ECONNABORTED" or "ETIMEDOUT": it took too long.
- *  - status 400: show the API's message for each field ({ title: ["Este campo ..."] }).
- *  - status 404: the resource no longer exists.
- *  - status 500 or more: the API failed; include the status number.
- *  - anything else: a generic sentence (never an empty string).
- */
+/** Turns anything the client can throw into ONE sentence in Spanish for the person. */
 export function describeError(error) {
-  return "TODO";
+  const code = error?.code;
+  const response = error?.response;
+
+  if (code === "ECONNABORTED" || code === "ETIMEDOUT") {
+    return "La API tardó demasiado en responder. Inténtalo de nuevo en un momento.";
+  }
+  if (!response && code === "ERR_NETWORK") {
+    return "No se pudo conectar con la API. Revisa que el servidor esté encendido y que este origen esté autorizado en CORS.";
+  }
+  if (response) {
+    const { status, data } = response;
+    if (status === 400 && data && typeof data === "object") {
+      const fields = Object.entries(data).map(([field, messages]) => `${field}: ${[].concat(messages).join(" ")}`);
+      return `Los datos no son válidos. ${fields.join(" ")}`;
+    }
+    if (status === 404) return "El recurso ya no existe en el servidor (quizá otra persona lo borró).";
+    if (status >= 500) return `La API falló (error ${status}). Inténtalo de nuevo en unos minutos.`;
+    return `La API rechazó la petición (estado ${status}).`;
+  }
+  return "Ocurrió un error inesperado al hablar con la API.";
 }
