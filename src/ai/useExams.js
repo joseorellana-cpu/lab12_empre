@@ -10,15 +10,17 @@ export default function useExams() {
 
   useEffect(() => {
     setStatus("loading");
+    setError(null);
     listExams()
       .then((data) => {
         setExams(data);
         setStatus("ready");
       })
       .catch((err) => {
-        console.error("Error loading exams", err);
+        // Fix 2: the error reaches the screen (status "error" + a sentence), not only the console.
         setExams([]);
-        setStatus("ready");
+        setError(describeError(err));
+        setStatus("error");
       });
   }, [attempt]);
 
@@ -28,7 +30,8 @@ export default function useExams() {
     try {
       await deleteExam(id);
     } catch (err) {
-      console.error("Error deleting exam", err);
+      setActionError(describeError(err));
+      return false;
     }
   }, []);
 
@@ -38,7 +41,7 @@ export default function useExams() {
       setExams((current) => [...current, exam]);
       return true;
     } catch (err) {
-      console.error("Error creating exam", err);
+      setActionError(describeError(err));
       return false;
     }
   }, []);

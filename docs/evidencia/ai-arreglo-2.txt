@@ -1,0 +1,595 @@
+
+> dae-s12-servicios-web-con-react@0.1.0 test:ai
+> vitest run --mode ai --reporter=verbose
+
+
+ RUN  v3.2.7 C:/cuarto ciclo/Labs empre/dae-s12-servicios-web-con-react
+
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > list --json imprime el arreglo de cuestionarios y sale con 0 46ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > list sin --json imprime una línea por cuestionario 11ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > la dirección también puede venir de EXAMS_API_URL 6ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > create --json crea el cuestionario y lo devuelve 5ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > create con un título vacío sale con 4 y dice lo que dijo la API 12ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > delete sin --yes no borra nada y sale con 8 3ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > delete 1 --yes lo borra; repetirlo sale con 5 (ya no existe) 9ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > con el servidor apagado sale con 3, sin pantalla en blanco ni traza de pila 8ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > un comando desconocido o sin argumentos sale con 2 y muestra el uso 3ms
+ ✓ src/test/cli.test.js > examctl · cors-check mira la política desde fuera > el origen del proyecto está autorizado: sale con 0 7ms
+ ✓ src/test/cli.test.js > examctl · cors-check mira la política desde fuera > un origen ajeno no recibe la cabecera: sale con 7 5ms
+ ✓ src/test/cli.test.js > examctl · cors-check mira la política desde fuera > una API con el comodín acepta cualquier origen: sale con 9 5ms
+ ✓ src/test/cli.test.js > examctl · como proceso > node cli/examctl.mjs list --json imprime JSON en stdout y termina con código 0 376ms
+ ✓ src/test/cli.test.js > examctl · como proceso > y con el servidor apagado termina con código 3 392ms
+ ✓ src/test/cors.test.js > cors · la política de la API > autoriza el origen del proyecto, http://localhost:5173 1ms
+ ✓ src/test/cors.test.js > cors · la política de la API > no usa el comodín: ninguna entrada es «*» 1ms
+ ✓ src/test/cors.test.js > cors · la política de la API > cada origen es esquema + host + puerto, sin barra final 0ms
+ ✓ src/test/cors.test.js > cors · la política de la API > un sitio ajeno queda fuera 0ms
+ ✓ src/test/cors.test.js > cors · la política de la API > otro puerto del mismo equipo también queda fuera (el origen incluye el puerto) 0ms
+ ✓ src/test/cors.test.js > cors · la política de la API > no mezcla credenciales con orígenes abiertos 0ms
+ ✓ src/test/cors.test.js > cors · lo que ve la página (red simulada) > desde el origen del proyecto la petición llega y devuelve los cuestionarios 24ms
+ ✓ src/test/cors.test.js > cors · lo que ve la página (red simulada) > desde un origen ajeno el navegador la bloquea: solo se ve «Network Error», sin respuesta 15ms
+ ✓ src/test/api.test.js > api · el cliente está configurado en un solo sitio > es una instancia de Axios con la dirección base de la API, sin barra final 2ms
+ ✓ src/test/api.test.js > api · el cliente está configurado en un solo sitio > tiene un tiempo de espera máximo 0ms
+ ✓ src/test/api.test.js > api · el cliente está configurado en un solo sitio > todas las llamadas salen hacia la dirección base (cambiarla las mueve a todas) 77ms
+ ✓ src/test/useExams.test.jsx > useExams · los tres estados de la petición > empieza en loading, sin datos ni error, y pide GET /exams/ una vez 25ms
+ ✓ src/test/useExams.test.jsx > useExams · los tres estados de la petición > cuando llegan los datos pasa a ready con los cuestionarios 20ms
+ ✓ src/test/useExams.test.jsx > useExams · los tres estados de la petición > si la API responde 500 pasa a error, con una frase que dice el estado, y sin datos 15ms
+ ✓ src/test/useExams.test.jsx > useExams · los tres estados de la petición > si el servidor está apagado (o CORS bloquea) pasa a error y lo explica 16ms
+ ✓ src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > cargando: un aviso de estado y ni tabla ni error 78ms
+ ✓ src/test/api.test.js > api · listExams, createExam y deleteExam > listExams hace GET /exams/ (con la barra final) y devuelve el arreglo, no la respuesta 31ms
+ × src/test/api.test.js > api · listExams, createExam y deleteExam > listExams entrega la señal a Axios: al abortar, la petición se cancela 38ms
+   → expected false to be true // Object.is equality
+ ✓ src/test/api.test.js > api · listExams, createExam y deleteExam > createExam hace POST /exams/ con { title } y devuelve el cuestionario creado 23ms
+ ✓ src/test/api.test.js > api · listExams, createExam y deleteExam > deleteExam hace DELETE /exams/<id>/ y no devuelve nada 16ms
+ ✓ src/test/api.test.js > api · listExams, createExam y deleteExam > un título vacío rechaza con el 400 de la API (el cliente no lo oculta) 16ms
+ ✓ src/test/useExams.test.jsx > useExams · los tres estados de la petición > reload vuelve a loading, pide otra vez y muestra lo nuevo 46ms
+ ✓ src/test/useExams.test.jsx > useExams · los tres estados de la petición > reload después de un error: error, loading y ready 47ms
+ × src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > al desmontar aborta la petición en vuelo 6ms
+   → expected false to be true // Object.is equality
+ × src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > al pedir otra vez (reload) aborta la petición anterior 2ms
+   → expected false to be true // Object.is equality
+ ✓ src/test/api.test.js > api · describeError > sin conexión (o CORS): dice que no pudo conectar y menciona el servidor y CORS 15ms
+ ✓ src/test/api.test.js > api · describeError > tiempo agotado: dice que tardó demasiado 0ms
+ ✓ src/test/api.test.js > api · describeError > 400: muestra el mensaje de la API para el campo 14ms
+ ✓ src/test/api.test.js > api · describeError > 404: dice que el recurso ya no existe 31ms
+ ✓ src/test/api.test.js > api · describeError > 500: incluye el número del estado 31ms
+ ✓ src/test/api.test.js > api · describeError > un error cualquiera da una frase, nunca una cadena vacía 0ms
+ × src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > si la primera respuesta llega DESPUÉS de la segunda, no pisa a la nueva 41ms
+   → expected [ 1, 2, 3, 4, 5, 6 ] to deeply equal [ 1, 2 ]
+ ✓ src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > si la respuesta llega después de desmontar, no pasa nada (ni avisos en la consola) 12ms
+ × src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > con StrictMode (el efecto corre dos veces) solo queda viva una petición y la pantalla acaba bien 5ms
+   → expected [ { method: 'GET', …(8) }, …(1) ] to have a length of 1 but got 2
+ × src/test/useExams.test.jsx > useExams · borrar > remove(id) hace DELETE y el cuestionario desaparece de la lista sin recargar 42ms
+   → expected undefined to be true // Object.is equality
+ ✓ src/test/useExams.test.jsx > useExams · borrar > si la API falla (500), la fila se queda, se explica el error y remove devuelve false 31ms
+ ✓ src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > con datos: una fila por cuestionario y el aviso de carga desaparece 43ms
+ ✓ src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > con datos vacíos: dice que todavía no hay cuestionarios 19ms
+ ✓ src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > con la API caída (500): una alerta con el mensaje y el botón Reintentar, no una lista vacía 25ms
+ ✓ src/test/App.test.jsx > App · la pantalla completa con la red simulada > dibuja el título y, tras la carga, la lista de cuestionarios 137ms
+ ✓ src/test/App.test.jsx > App · la pantalla completa con la red simulada > con el servidor apagado la pantalla muestra el error; al encenderlo y Reintentar, vuelven los datos 185ms
+ ✓ src/test/App.test.jsx > App · la pantalla completa con la red simulada > sin red simulada (API real) no aparece el panel 4ms
+ ✓ src/test/useExams.test.jsx > useExams · crear > create(title) hace POST y añade el cuestionario creado al final 46ms
+ × src/test/useExams.test.jsx > useExams · crear > mientras el POST está en vuelo saving es true, y vuelve a false al terminar 32ms
+   → expected false to be true // Object.is equality
+ × src/test/useExams.test.jsx > useExams · crear > dos create seguidos, con el primero en vuelo, envían un solo POST 30ms
+   → expected [ { method: 'POST', …(8) }, …(1) ] to have a length of 1 but got 2
+ ✓ src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > con el servidor apagado: la alerta lo dice, y Reintentar vuelve a cargar y muestra los datos 99ms
+ ✓ src/test/useExams.test.jsx > useExams · crear > un título vacío: la API responde 400, se muestra su mensaje y la lista no cambia 46ms
+ × src/test/useExams.test.jsx > useExams · crear > después de un error se puede volver a crear (saving no se queda atascado) 93ms
+   → expected 'Datos no válidos. title: Este campo n…' to be null
+ × src/test/ExamList.test.jsx > ExamList · borrar y crear > Eliminar quita la fila sin recargar la página 415ms
+   → expect(element).not.toBeInTheDocument()
+
+expected document not to contain element, found <td>
+  API REST con DRF
+</td> instead
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"exams"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mCuestionarios[0m
+        [36m</h2>[39m
+        [36m<table>[39m
+          [36m<thead>[39m
+            [36m<tr>[39m
+              [36m<th>[39m
+                [0mTítulo[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mPreguntas[0m
+              [36m</th>[39m
+              [36m<th />[39m
+            [36m</tr>[39m
+          [36m</thead>[39m
+          [36m<tbody>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mDjango · Modelos y migraciones[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m6[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar Django · Modelos y migraciones"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mDjango · Plantillas[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m4[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar Django · Plantillas"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mDjango · ORM y consultas[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m8[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar Django · ORM y consultas"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mAPI REST con DRF[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m5[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar API REST con DRF"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mReact · Componentes y eventos[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m7[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar React · Componentes y eventos"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mReact · Hooks[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m3[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar React · Hooks"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+          [36m</tbody>[39m
+        [36m</table>[39m
+        [36m<form[39m
+          [33mclass[39m=[32m"new-exam"[39m
+        [36m>[39m
+          [36m<label[39m
+            [33mfor[39m=[32m"exam-title"[39m
+          [36m>[39m
+            [0mTítulo del cuestionario[0m
+          [36m</label>[39m
+          [36m<input[39m
+            [33mid[39m=[32m"exam-title"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"submit"[39m
+          [36m>[39m
+            [0mAgregar[0m
+          [36m</button>[39m
+        [36m</form>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</body>[39m
+[36m</html>[39m
+ ✓ src/test/ExamList.test.jsx > ExamList · borrar y crear > si Eliminar falla: la fila sigue y una alerta explica el error 99ms
+ ✓ src/test/ExamList.test.jsx > ExamList · borrar y crear > Agregar crea el cuestionario, lo muestra y vacía el campo 343ms
+ × src/test/ExamList.test.jsx > ExamList · borrar y crear > un doble clic en Agregar envía un solo POST y el botón se desactiva mientras espera 326ms
+   → expected [ { method: 'POST', …(8) }, …(1) ] to have a length of 1 but got 2
+ ✓ src/test/ExamList.test.jsx > ExamList · borrar y crear > con el título vacío se muestra el mensaje de la API, no una pantalla muda 110ms
+
+⎯⎯⎯⎯⎯⎯ Failed Tests 11 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/test/api.test.js > api · listExams, createExam y deleteExam > listExams entrega la señal a Axios: al abortar, la petición se cancela
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/test/api.test.js:57:41
+     55|     controller.abort();
+     56|     await settle();
+     57|     expect(network.requests[0].aborted).toBe(true);
+       |                                         ^
+     58|     await expect(promise).rejects.toSatisfy((error) => axios.isCancel(…
+     59|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/11]⎯
+
+ FAIL  src/test/ExamList.test.jsx > ExamList · borrar y crear > Eliminar quita la fila sin recargar la página
+Error: expect(element).not.toBeInTheDocument()
+
+expected document not to contain element, found <td>
+  API REST con DRF
+</td> instead
+
+Ignored nodes: comments, script, style
+[36m<html>[39m
+  [36m<head />[39m
+  [36m<body>[39m
+    [36m<div>[39m
+      [36m<section[39m
+        [33mclass[39m=[32m"exams"[39m
+      [36m>[39m
+        [36m<h2>[39m
+          [0mCuestionarios[0m
+        [36m</h2>[39m
+        [36m<table>[39m
+          [36m<thead>[39m
+            [36m<tr>[39m
+              [36m<th>[39m
+                [0mTítulo[0m
+              [36m</th>[39m
+              [36m<th>[39m
+                [0mPreguntas[0m
+              [36m</th>[39m
+              [36m<th />[39m
+            [36m</tr>[39m
+          [36m</thead>[39m
+          [36m<tbody>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mDjango · Modelos y migraciones[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m6[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar Django · Modelos y migraciones"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mDjango · Plantillas[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m4[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar Django · Plantillas"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mDjango · ORM y consultas[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m8[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar Django · ORM y consultas"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mAPI REST con DRF[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m5[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar API REST con DRF"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mReact · Componentes y eventos[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m7[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar React · Componentes y eventos"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+            [36m<tr>[39m
+              [36m<td>[39m
+                [0mReact · Hooks[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [0m3[0m
+              [36m</td>[39m
+              [36m<td>[39m
+                [36m<button[39m
+                  [33maria-label[39m=[32m"Eliminar React · Hooks"[39m
+                  [33mtype[39m=[32m"button"[39m
+                [36m>[39m
+                  [0mEliminar[0m
+                [36m</button>[39m
+              [36m</td>[39m
+            [36m</tr>[39m
+          [36m</tbody>[39m
+        [36m</table>[39m
+        [36m<form[39m
+          [33mclass[39m=[32m"new-exam"[39m
+        [36m>[39m
+          [36m<label[39m
+            [33mfor[39m=[32m"exam-title"[39m
+          [36m>[39m
+            [0mTítulo del cuestionario[0m
+          [36m</label>[39m
+          [36m<input[39m
+            [33mid[39m=[32m"exam-title"[39m
+            [33mvalue[39m=[32m""[39m
+          [36m/>[39m
+          [36m<button[39m
+            [33mtype[39m=[32m"submit"[39m
+          [36m>[39m
+            [0mAgregar[0m
+          [36m</button>[39m
+        [36m</form>[39m
+      [36m</section>[39m
+    [36m</div>[39m
+  [36m</body>[39m
+[36m</html>[39m
+ ❯ src/test/ExamList.test.jsx:66:76
+     64|     await userEvent.click(screen.getByRole("button", { name: "Eliminar…
+     65|     await release(network);
+     66|     await waitFor(() => expect(screen.queryByText("API REST con DRF"))…
+       |                                                                            ^
+     67|     expect(screen.getAllByRole("row")).toHaveLength(6);
+     68|   });
+ ❯ runWithExpensiveErrorDiagnosticsDisabled node_modules/@testing-library/dom/dist/config.js:47:12
+ ❯ checkCallback node_modules/@testing-library/dom/dist/wait-for.js:124:77
+ ❯ Timeout.checkRealTimersCallback node_modules/@testing-library/dom/dist/wait-for.js:118:16
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/11]⎯
+
+ FAIL  src/test/ExamList.test.jsx > ExamList · borrar y crear > un doble clic en Agregar envía un solo POST y el botón se desactiva mientras espera
+AssertionError: expected [ { method: 'POST', …(8) }, …(1) ] to have a length of 1 but got 2
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ src/test/ExamList.test.jsx:93:77
+     91|     const button = screen.getByRole("button", { name: "Agregar" });
+     92|     await userEvent.dblClick(button);
+     93|     expect(network.requests.filter((request) => request.method === "PO…
+       |                                                                             ^
+     94|     expect(screen.getByRole("button", { name: "Guardando…" })).toBeDis…
+     95|     await releaseAll(network);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/11]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > al desmontar aborta la petición en vuelo
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/test/useExams.test.jsx:81:41
+     79|     expect(network.requests[0].aborted).toBe(false);
+     80|     unmount();
+     81|     expect(network.requests[0].aborted).toBe(true);
+       |                                         ^
+     82|   });
+     83| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/11]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > al pedir otra vez (reload) aborta la petición anterior
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/test/useExams.test.jsx:87:41
+     85|     const { result } = renderHook(() => useExams());
+     86|     act(() => result.current.reload());
+     87|     expect(network.requests[0].aborted).toBe(true);
+       |                                         ^
+     88|     expect(network.requests[1].aborted).toBe(false);
+     89|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/11]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > si la primera respuesta llega DESPUÉS de la segunda, no pisa a la nueva
+AssertionError: expected [ 1, 2, 3, 4, 5, 6 ] to deeply equal [ 1, 2 ]
+
+- Expected
++ Received
+
+  [
+    1,
+    2,
++   3,
++   4,
++   5,
++   6,
+  ]
+
+ ❯ src/test/useExams.test.jsx:100:57
+     98|     const fresh = result.current.exams.map((exam) => exam.id);
+     99|     await release(network, 0); // the slow answer finally arrives
+    100|     expect(result.current.exams.map((exam) => exam.id)).toEqual(fresh);
+       |                                                         ^
+    101|     expect(result.current.status).toBe("ready");
+    102|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/11]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > con StrictMode (el efecto corre dos veces) solo queda viva una petición y la pantalla acaba bien
+AssertionError: expected [ { method: 'GET', …(8) }, …(1) ] to have a length of 1 but got 2
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ src/test/useExams.test.jsx:116:68
+    114|     const { result } = renderHook(() => useExams(), { wrapper: StrictM…
+    115|     expect(network.requests.length).toBeGreaterThanOrEqual(2);
+    116|     expect(network.requests.filter((request) => !request.aborted)).toH…
+       |                                                                    ^
+    117|     await releaseAll(network);
+    118|     await waitFor(() => expect(result.current.status).toBe("ready"));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/11]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · borrar > remove(id) hace DELETE y el cuestionario desaparece de la lista sin recargar
+AssertionError: expected undefined to be true // Object.is equality
+
+- Expected: 
+true
+
++ Received: 
+undefined
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/11]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · crear > mientras el POST está en vuelo saving es true, y vuelve a false al terminar
+AssertionError: expected false to be true // Object.is equality
+
+- Expected
++ Received
+
+- true
++ false
+
+ ❯ src/test/useExams.test.jsx:171:35
+    169|       result.current.create("Examen final");
+    170|     });
+    171|     expect(result.current.saving).toBe(true);
+       |                                   ^
+    172|     await release(network);
+    173|     await waitFor(() => expect(result.current.saving).toBe(false));
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/11]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · crear > dos create seguidos, con el primero en vuelo, envían un solo POST
+AssertionError: expected [ { method: 'POST', …(8) }, …(1) ] to have a length of 1 but got 2
+
+- Expected
++ Received
+
+- 1
++ 2
+
+ ❯ src/test/useExams.test.jsx:183:77
+    181|       second = result.current.create("Examen final");
+    182|     });
+    183|     expect(network.requests.filter((request) => request.method === "PO…
+       |                                                                             ^
+    184|     await releaseAll(network);
+    185|     await expect(second).resolves.toBe(false);
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/11]⎯
+
+ FAIL  src/test/useExams.test.jsx > useExams · crear > después de un error se puede volver a crear (saving no se queda atascado)
+AssertionError: expected 'Datos no válidos. title: Este campo n…' to be null
+
+- Expected: 
+null
+
++ Received: 
+"Datos no válidos. title: Este campo no puede estar en blanco."
+
+ ❯ src/test/useExams.test.jsx:213:40
+    211|     await release(network);
+    212|     await waitFor(() => expect(result.current.exams.at(-1)?.title).toB…
+    213|     expect(result.current.actionError).toBeNull();
+       |                                        ^
+    214|   });
+    215| });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/11]⎯
+
+
+ Test Files  3 failed | 3 passed (6)
+      Tests  11 failed | 56 passed (67)
+   Start at  16:58:00
+   Duration  4.09s (transform 270ms, setup 2.14s, collect 1.88s, tests 3.67s, environment 5.42s, prepare 1.72s)
+
