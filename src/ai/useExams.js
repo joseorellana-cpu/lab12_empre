@@ -9,19 +9,28 @@ export default function useExams() {
   const [attempt, setAttempt] = useState(0);
 
   useEffect(() => {
+    // Fix 3: cleanup. The effect aborts its request and ignores a late answer (reload, StrictMode, unmount).
+    const controller = new AbortController();
+    let cancelled = false;
     setStatus("loading");
     setError(null);
-    listExams()
+    listExams({ signal: controller.signal })
       .then((data) => {
+        if (cancelled) return;
         setExams(data);
         setStatus("ready");
       })
       .catch((err) => {
+        if (cancelled) return;
         // Fix 2: the error reaches the screen (status "error" + a sentence), not only the console.
         setExams([]);
         setError(describeError(err));
         setStatus("error");
       });
+    return () => {
+      cancelled = true;
+      controller.abort();
+    };
   }, [attempt]);
 
   const reload = useCallback(() => setAttempt((n) => n + 1), []);
