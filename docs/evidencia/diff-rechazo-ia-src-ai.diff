@@ -1,0 +1,110 @@
+diff --git a/src/ai/api.js b/src/ai/api.js
+index dd50e8c..15199a9 100644
+--- a/src/ai/api.js
++++ b/src/ai/api.js
+@@ -8,8 +8,9 @@ export const api = axios.create({
+   headers: { Accept: "application/json" },
+ });
+ 
+-export function listExams() {
+-  return api.get("/exams/").then((response) => response.data);
++export function listExams({ signal } = {}) {
++  // Fix 3: the signal reaches Axios, so the request can be cancelled.
++  return api.get("/exams/", { signal }).then((response) => response.data);
+ }
+ 
+ export function createExam(title) {
+diff --git a/src/ai/cors.js b/src/ai/cors.js
+index 56fe271..5c61b0e 100644
+--- a/src/ai/cors.js
++++ b/src/ai/cors.js
+@@ -1,4 +1,5 @@
++// Fix 1: no wildcard. Only the project's origin, exact scheme + host + port.
+ export const corsPolicy = {
+-  allowedOrigins: ["*"],
++  allowedOrigins: ["http://localhost:5173"],
+   allowCredentials: false,
+ };
+diff --git a/src/ai/useExams.js b/src/ai/useExams.js
+index f5c20f6..0a8a6d9 100644
+--- a/src/ai/useExams.js
++++ b/src/ai/useExams.js
+@@ -1,4 +1,4 @@
+-import { useCallback, useEffect, useState } from "react";
++import { useCallback, useEffect, useRef, useState } from "react";
+ import { createExam, deleteExam, describeError, listExams } from "./api";
+ 
+ export default function useExams() {
+@@ -7,41 +7,66 @@ export default function useExams() {
+   const [error, setError] = useState(null);
+   const [actionError, setActionError] = useState(null);
+   const [attempt, setAttempt] = useState(0);
++  const [saving, setSaving] = useState(false);
++  const inFlight = useRef(false); // Fix 4: double-submit guard (a ref changes at once; a state would be too late)
+ 
+   useEffect(() => {
++    // Fix 3: cleanup. The effect aborts its request and ignores a late answer (reload, StrictMode, unmount).
++    const controller = new AbortController();
++    let cancelled = false;
+     setStatus("loading");
+-    listExams()
++    setError(null);
++    listExams({ signal: controller.signal })
+       .then((data) => {
++        if (cancelled) return;
+         setExams(data);
+         setStatus("ready");
+       })
+       .catch((err) => {
+-        console.error("Error loading exams", err);
++        if (cancelled) return;
++        // Fix 2: the error reaches the screen (status "error" + a sentence), not only the console.
+         setExams([]);
+-        setStatus("ready");
++        setError(describeError(err));
++        setStatus("error");
+       });
++    return () => {
++      cancelled = true;
++      controller.abort();
++    };
+   }, [attempt]);
+ 
+   const reload = useCallback(() => setAttempt((n) => n + 1), []);
+ 
+   const remove = useCallback(async (id) => {
++    setActionError(null);
+     try {
+       await deleteExam(id);
++      // Fix 5: when the server confirms, the row leaves the list (local filter, no reload).
++      setExams((current) => current.filter((exam) => exam.id !== id));
++      return true;
+     } catch (err) {
+-      console.error("Error deleting exam", err);
++      setActionError(describeError(err));
++      return false;
+     }
+   }, []);
+ 
+   const create = useCallback(async (title) => {
++    if (inFlight.current) return false;
++    inFlight.current = true;
++    setSaving(true);
++    setActionError(null);
+     try {
+       const exam = await createExam(title);
+       setExams((current) => [...current, exam]);
+       return true;
+     } catch (err) {
+-      console.error("Error creating exam", err);
++      setActionError(describeError(err));
+       return false;
++    } finally {
++      inFlight.current = false;
++      setSaving(false);
+     }
+   }, []);
+ 
+-  return { status, exams, error, actionError, saving: false, reload, remove, create };
++  return { status, exams, error, actionError, saving, reload, remove, create };
+ }

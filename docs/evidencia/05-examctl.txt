@@ -1,0 +1,46 @@
+$ npm run examctl -- list --json
+[stdout] [{"id":1,"title":"Django · Modelos y migraciones","created_at":"2026-09-12T10:00:00Z","question_count":6},{"id":2,"title":"Django · Plantillas","created_at":"2026-09-19T10:00:00Z","question_count":4},{"id":3,"title":"Django · ORM y consultas","created_at":"2026-09-26T10:00:00Z","question_count":8},{"id":4,"title":"API REST con DRF","created_at":"2026-10-03T10:00:00Z","question_count":5},{"id":5,"title":"React · Componentes y eventos","created_at":"2026-10-24T10:00:00Z","question_count":7},{"id":6,"title":"React · Hooks","created_at":"2026-10-31T10:00:00Z","question_count":3}]
+[stderr] 
+[exit] 0
+
+$ npm run examctl -- create Examen final --json
+[stdout] {"id":7,"title":"Examen final","created_at":"2026-11-15T21:58:53.069Z","question_count":0}
+[stderr] 
+[exit] 0
+
+$ npm run examctl -- delete 3 --yes
+[stdout] Eliminado 3
+[stderr] 
+[exit] 0
+
+$ npm run examctl -- delete 2
+[stdout] 
+[stderr] delete borra el cuestionario 2 y no se puede deshacer: repite el comando con --yes.
+[exit] 8
+
+$ npm run examctl -- create 
+[stdout] 
+[stderr] Datos no válidos. title: Este campo no puede estar en blanco.
+[exit] 4
+
+$ npm run examctl -- delete 99 --yes
+[stdout] 
+[stderr] No existe en el servidor.
+[exit] 5
+
+$ npm run examctl -- cors-check --origin http://localhost:5173
+[stdout] Origen http://localhost:5173: Access-Control-Allow-Origin = http://localhost:5173
+[stderr] 
+[exit] 0
+
+$ npm run examctl -- cors-check --origin https://sitio-malo.example
+[stdout] Origen https://sitio-malo.example: Access-Control-Allow-Origin = (ausente: el navegador lo bloquea)
+[stderr] La API no autoriza ese origen.
+[exit] 7
+
+--- API reiniciada con: npm run api -- --wildcard
+$ npm run examctl -- cors-check --origin https://sitio-malo.example
+[stdout] Origen https://sitio-malo.example: Access-Control-Allow-Origin = *
+[stderr] La API acepta cualquier origen (comodín): es más permisivo de lo necesario.
+[exit] 9
+
