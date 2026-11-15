@@ -1,0 +1,99 @@
+origin: http://localhost:5173 · title: Servicios web con React
+
+== Al entrar (cargando):
+Cuestionarios
+Cargando cuestionarios…
+Título del cuestionario
+Agregar
+
+== Con datos:
+Cuestionarios
+Título	Preguntas	
+Django · Modelos y migraciones	6	Eliminar
+Django · Plantillas	4	Eliminar
+Django · ORM y consultas	8	Eliminar
+API REST con DRF	5	Eliminar
+React · Componentes y eventos	7	Eliminar
+React · Hooks	3	Eliminar
+Título del cuestionario
+Agregar
+
+== Servidor apagado + Eliminar «React · Hooks»:
+Cuestionarios
+Título	Preguntas	
+Django · Modelos y migraciones	6	Eliminar
+Django · Plantillas	4	Eliminar
+Django · ORM y consultas	8	Eliminar
+API REST con DRF	5	Eliminar
+React · Componentes y eventos	7	Eliminar
+React · Hooks	3	Eliminar
+
+No se pudo conectar con la API. Revisa que el servidor esté encendido y que este origen esté autorizado en CORS.
+
+Título del cuestionario
+Agregar
+
+== Recargado (servidor encendido por defecto) — estado:
+Cuestionarios
+Título	Preguntas	
+Django · Modelos y migraciones	6	Eliminar
+Django · Plantillas	4	Eliminar
+Django · ORM y consultas	8	Eliminar
+API REST con DRF	5	Eliminar
+React · Componentes y eventos	7	Eliminar
+React · Hooks	3	Eliminar
+Título del cuestionario
+Agregar
+
+== La próxima petición devuelve 500 + Eliminar «React · Hooks»:
+Cuestionarios
+Título	Preguntas	
+Django · Modelos y migraciones	6	Eliminar
+Django · Plantillas	4	Eliminar
+Django · ORM y consultas	8	Eliminar
+API REST con DRF	5	Eliminar
+React · Componentes y eventos	7	Eliminar
+React · Hooks	3	Eliminar
+
+La API falló (error 500). Inténtalo de nuevo en unos minutos.
+
+Título del cuestionario
+Agregar
+
+== Título vacío + Agregar:
+Cuestionarios
+Título	Preguntas	
+Django · Modelos y migraciones	6	Eliminar
+Django · Plantillas	4	Eliminar
+Django · ORM y consultas	8	Eliminar
+API REST con DRF	5	Eliminar
+React · Componentes y eventos	7	Eliminar
+React · Hooks	3	Eliminar
+
+Los datos no son válidos. title: Este campo no puede estar en blanco.
+
+Título del cuestionario
+Agregar
+
+== Lista tras recargar con el servidor apagado justo después:
+Cuestionarios
+Título	Preguntas	
+Django · Modelos y migraciones	6	Eliminar
+Django · Plantillas	4	Eliminar
+Django · ORM y consultas	8	Eliminar
+API REST con DRF	5	Eliminar
+React · Componentes y eventos	7	Eliminar
+React · Hooks	3	Eliminar
+Título del cuestionario
+Agregar
+
+== Consola:
+[debug] [vite] connecting...
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[debug] [vite] connected.
+[debug] [vite] connecting...
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[debug] [vite] connected.
+[debug] [vite] connecting...
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[debug] [vite] connected.

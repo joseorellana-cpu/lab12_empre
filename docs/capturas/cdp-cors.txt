@@ -1,0 +1,15 @@
+origin: http://localhost:5173 · title: Servicios web con React
+
+== Sin el origen en src/client/cors.js:
+Cuestionarios
+
+No se pudo conectar con la API. Revisa que el servidor esté encendido y que este origen esté autorizado en CORS.
+
+Reintentar
+Título del cuestionario
+Agregar
+
+== Consola:
+[debug] [vite] connecting...
+[debug] [vite] connected.
+[info] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
