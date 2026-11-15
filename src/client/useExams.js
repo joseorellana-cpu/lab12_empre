@@ -1,33 +1,75 @@
 // PART 3 - the hook of the exams screen: the list with its three states, delete and create.
-// Run it with:  npm test -- useExams
-//
-// It must return { status, exams, error, actionError, saving, reload, remove, create }:
-//   status       "loading" | "ready" | "error"   (the three states of the request that lists)
-//   exams        the array of exams ([] while loading and on error)
-//   error        the sentence for the person when the LIST failed (null otherwise); use describeError
-//   actionError  the sentence when a delete or a create failed (null otherwise); the list stays as it was
-//   saving       true while a create is in flight
-//   reload()     asks for the list again (status goes back to "loading")
-//   remove(id)   DELETE; when the server confirms, the exam disappears from `exams`; resolves true or false
-//   create(title) POST; when the server confirms, the new exam is added; resolves true or false
-//
-// TODO 1: the state and a useEffect that lists, with the three states. The effect gets an AbortController and a
-//         `cancelled` flag, and its cleanup sets the flag and aborts: a late answer must never overwrite a newer one.
-// TODO 2: `reload` (a counter that is a dependency of the effect is enough).
-// TODO 3: `remove` and `create`. NEVER swallow an error: set `actionError` with describeError. `create` must
-//         ignore a second call while the first one is still in flight (use a ref: a state is too late).
+// Returns { status, exams, error, actionError, saving, reload, remove, create }.
 // Rule of the course: no hook inside an if, a loop or after a return.
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createExam, deleteExam, describeError, listExams } from "./api";
 
+const LOADING = { status: "loading", exams: [], error: null };
+
 export default function useExams() {
-  return {
-    status: "loading",
-    exams: [],
-    error: null,
-    actionError: null,
-    saving: false,
-    reload: () => {},
-    remove: async () => false,
-    create: async () => false,
-  };
+  const [list, setList] = useState(LOADING);
+  const [attempt, setAttempt] = useState(0);
+  const [actionError, setActionError] = useState(null);
+  const [saving, setSaving] = useState(false);
+
+  // The list request, with its three states. Each run of the effect owns an AbortController and a `cancelled`
+  // flag; the cleanup (on reload and on unmount) raises the flag and aborts the request, so a late answer can never
+  // overwrite a newer one, and nothing touches the state after unmounting.
+  useEffect(() => {
+    const controller = new AbortController();
+    let cancelled = false;
+    setList(LOADING);
+    listExams({ signal: controller.signal }).then(
+      (exams) => {
+        if (!cancelled) setList({ status: "ready", exams, error: null });
+      },
+      (error) => {
+        if (!cancelled) setList({ status: "error", exams: [], error: describeError(error) });
+      }
+    );
+    return () => {
+      cancelled = true;
+      controller.abort();
+    };
+  }, [attempt]);
+
+  const reload = useCallback(() => setAttempt((n) => n + 1), []);
+
+  // Team decision: after the server CONFIRMS a delete or a create, the list is updated locally (filter / append)
+  // instead of asking for it again. One request less, no flash of the loading state, and the change is only shown
+  // once the server said yes (never before). If the server fails, the list stays as it was and actionError says why.
+  const remove = useCallback(async (id) => {
+    setActionError(null);
+    try {
+      await deleteExam(id);
+      setList((current) => ({ ...current, exams: current.exams.filter((exam) => exam.id !== id) }));
+      return true;
+    } catch (error) {
+      setActionError(describeError(error));
+      return false;
+    }
+  }, []);
+
+  // The double-submit guard is a ref: it changes at once, inside the same click. A state would only change on the
+  // next render, so two calls in a row would both see `saving === false` and send two POSTs.
+  const inFlight = useRef(false);
+  const create = useCallback(async (title) => {
+    if (inFlight.current) return false;
+    inFlight.current = true;
+    setSaving(true);
+    setActionError(null);
+    try {
+      const exam = await createExam(title);
+      setList((current) => ({ ...current, exams: [...current.exams, exam] }));
+      return true;
+    } catch (error) {
+      setActionError(describeError(error));
+      return false;
+    } finally {
+      inFlight.current = false;
+      setSaving(false);
+    }
+  }, []);
+
+  return { ...list, actionError, saving, reload, remove, create };
 }

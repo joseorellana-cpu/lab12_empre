@@ -1,0 +1,116 @@
+
+> dae-s12-servicios-web-con-react@0.1.0 test
+> vitest run --mode team --reporter=verbose
+
+
+ RUN  v3.2.7 C:/cuarto ciclo/Labs empre/dae-s12-servicios-web-con-react
+
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > list --json imprime el arreglo de cuestionarios y sale con 0 48ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > list sin --json imprime una línea por cuestionario 12ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > la dirección también puede venir de EXAMS_API_URL 6ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > create --json crea el cuestionario y lo devuelve 7ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > create con un título vacío sale con 4 y dice lo que dijo la API 14ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > delete sin --yes no borra nada y sale con 8 3ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > delete 1 --yes lo borra; repetirlo sale con 5 (ya no existe) 10ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > con el servidor apagado sale con 3, sin pantalla en blanco ni traza de pila 8ms
+ ✓ src/test/cli.test.js > examctl · lista, crea y elimina sin pantalla > un comando desconocido o sin argumentos sale con 2 y muestra el uso 3ms
+ ✓ src/test/cli.test.js > examctl · cors-check mira la política desde fuera > el origen del proyecto está autorizado: sale con 0 7ms
+ ✓ src/test/cli.test.js > examctl · cors-check mira la política desde fuera > un origen ajeno no recibe la cabecera: sale con 7 5ms
+ ✓ src/test/cli.test.js > examctl · cors-check mira la política desde fuera > una API con el comodín acepta cualquier origen: sale con 9 7ms
+ ✓ src/test/cli.test.js > examctl · como proceso > node cli/examctl.mjs list --json imprime JSON en stdout y termina con código 0 366ms
+ ✓ src/test/cli.test.js > examctl · como proceso > y con el servidor apagado termina con código 3 347ms
+ ✓ src/test/cors.test.js > cors · la política de la API > autoriza el origen del proyecto, http://localhost:5173 1ms
+ ✓ src/test/cors.test.js > cors · la política de la API > no usa el comodín: ninguna entrada es «*» 1ms
+ ✓ src/test/cors.test.js > cors · la política de la API > cada origen es esquema + host + puerto, sin barra final 0ms
+ ✓ src/test/cors.test.js > cors · la política de la API > un sitio ajeno queda fuera 0ms
+ ✓ src/test/cors.test.js > cors · la política de la API > otro puerto del mismo equipo también queda fuera (el origen incluye el puerto) 0ms
+ ✓ src/test/cors.test.js > cors · la política de la API > no mezcla credenciales con orígenes abiertos 0ms
+ ✓ src/test/cors.test.js > cors · lo que ve la página (red simulada) > desde el origen del proyecto la petición llega y devuelve los cuestionarios 14ms
+ ✓ src/test/cors.test.js > cors · lo que ve la página (red simulada) > desde un origen ajeno el navegador la bloquea: solo se ve «Network Error», sin respuesta 31ms
+ ✓ src/test/api.test.js > api · el cliente está configurado en un solo sitio > es una instancia de Axios con la dirección base de la API, sin barra final 3ms
+ ✓ src/test/api.test.js > api · el cliente está configurado en un solo sitio > tiene un tiempo de espera máximo 0ms
+ ✓ src/test/api.test.js > api · el cliente está configurado en un solo sitio > todas las llamadas salen hacia la dirección base (cambiarla las mueve a todas) 94ms
+ ✓ src/test/useExams.test.jsx > useExams · los tres estados de la petición > empieza en loading, sin datos ni error, y pide GET /exams/ una vez 31ms
+ ✓ src/test/useExams.test.jsx > useExams · los tres estados de la petición > cuando llegan los datos pasa a ready con los cuestionarios 30ms
+ ✓ src/test/useExams.test.jsx > useExams · los tres estados de la petición > si la API responde 500 pasa a error, con una frase que dice el estado, y sin datos 15ms
+(node:153884) PromiseRejectionHandledWarning: Promise rejection was handled asynchronously (rejection id: 4)
+(Use `node --trace-warnings ...` to show where the warning was created)
+ ✓ src/test/useExams.test.jsx > useExams · los tres estados de la petición > si el servidor está apagado (o CORS bloquea) pasa a error y lo explica 31ms
+ ✓ src/test/useExams.test.jsx > useExams · los tres estados de la petición > reload vuelve a loading, pide otra vez y muestra lo nuevo 46ms
+ ✓ src/test/useExams.test.jsx > useExams · los tres estados de la petición > reload después de un error: error, loading y ready 48ms
+ ✓ src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > al desmontar aborta la petición en vuelo 3ms
+ ✓ src/test/api.test.js > api · listExams, createExam y deleteExam > listExams hace GET /exams/ (con la barra final) y devuelve el arreglo, no la respuesta 27ms
+ ✓ src/test/api.test.js > api · listExams, createExam y deleteExam > listExams entrega la señal a Axios: al abortar, la petición se cancela 11ms
+ ✓ src/test/api.test.js > api · listExams, createExam y deleteExam > createExam hace POST /exams/ con { title } y devuelve el cuestionario creado 22ms
+ ✓ src/test/api.test.js > api · listExams, createExam y deleteExam > deleteExam hace DELETE /exams/<id>/ y no devuelve nada 32ms
+ ✓ src/test/api.test.js > api · listExams, createExam y deleteExam > un título vacío rechaza con el 400 de la API (el cliente no lo oculta) 17ms
+ ✓ src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > cargando: un aviso de estado y ni tabla ni error 82ms
+ ✓ src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > al pedir otra vez (reload) aborta la petición anterior 5ms
+ ✓ src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > si la primera respuesta llega DESPUÉS de la segunda, no pisa a la nueva 39ms
+ ✓ src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > si la respuesta llega después de desmontar, no pasa nada (ni avisos en la consola) 16ms
+ ✓ src/test/useExams.test.jsx > useExams · limpieza y carrera de peticiones > con StrictMode (el efecto corre dos veces) solo queda viva una petición y la pantalla acaba bien 16ms
+ ✓ src/test/api.test.js > api · describeError > sin conexión (o CORS): dice que no pudo conectar y menciona el servidor y CORS 30ms
+ ✓ src/test/api.test.js > api · describeError > tiempo agotado: dice que tardó demasiado 0ms
+ ✓ src/test/api.test.js > api · describeError > 400: muestra el mensaje de la API para el campo 30ms
+ ✓ src/test/api.test.js > api · describeError > 404: dice que el recurso ya no existe 32ms
+ ✓ src/test/api.test.js > api · describeError > 500: incluye el número del estado 16ms
+ ✓ src/test/api.test.js > api · describeError > un error cualquiera da una frase, nunca una cadena vacía 0ms
+ ✓ src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > con datos: una fila por cuestionario y el aviso de carga desaparece 48ms
+ ✓ src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > con datos vacíos: dice que todavía no hay cuestionarios 36ms
+ ✓ src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > con la API caída (500): una alerta con el mensaje y el botón Reintentar, no una lista vacía 26ms
+ ✓ src/test/App.test.jsx > App · la pantalla completa con la red simulada > dibuja el título y, tras la carga, la lista de cuestionarios 129ms
+ ✓ src/test/useExams.test.jsx > useExams · borrar > remove(id) hace DELETE y el cuestionario desaparece de la lista sin recargar 47ms
+ ✓ src/test/useExams.test.jsx > useExams · borrar > si la API falla (500), la fila se queda, se explica el error y remove devuelve false 47ms
+ ✓ src/test/App.test.jsx > App · la pantalla completa con la red simulada > con el servidor apagado la pantalla muestra el error; al encenderlo y Reintentar, vuelven los datos 187ms
+ ✓ src/test/App.test.jsx > App · la pantalla completa con la red simulada > sin red simulada (API real) no aparece el panel 9ms
+ ✓ src/test/useExams.test.jsx > useExams · crear > create(title) hace POST y añade el cuestionario creado al final 64ms
+ ✓ src/test/useExams.test.jsx > useExams · crear > mientras el POST está en vuelo saving es true, y vuelve a false al terminar 45ms
+ ✓ src/test/ExamList.test.jsx > ExamList · los tres estados que ve la persona > con el servidor apagado: la alerta lo dice, y Reintentar vuelve a cargar y muestra los datos 131ms
+ ✓ src/test/useExams.test.jsx > useExams · crear > dos create seguidos, con el primero en vuelo, envían un solo POST 61ms
+ ✓ src/test/useExams.test.jsx > useExams · crear > un título vacío: la API responde 400, se muestra su mensaje y la lista no cambia 46ms
+ ✓ src/test/ExamList.test.jsx > ExamList · borrar y crear > Eliminar quita la fila sin recargar la página 99ms
+ ✓ src/test/useExams.test.jsx > useExams · crear > después de un error se puede volver a crear (saving no se queda atascado) 80ms
+ ✓ src/test/ExamList.test.jsx > ExamList · borrar y crear > si Eliminar falla: la fila sigue y una alerta explica el error 106ms
+ ✓ src/test/ExamList.test.jsx > ExamList · borrar y crear > Agregar crea el cuestionario, lo muestra y vacía el campo 322ms
+ ✓ src/test/ExamList.test.jsx > ExamList · borrar y crear > un doble clic en Agregar envía un solo POST y el botón se desactiva mientras espera 346ms
+ ✓ src/test/ExamList.test.jsx > ExamList · borrar y crear > con el título vacío se muestra el mensaje de la API, no una pantalla muda 113ms
+⎯⎯⎯⎯⎯⎯ Unhandled Errors ⎯⎯⎯⎯⎯⎯
+
+Vitest caught 1 unhandled error during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.
+
+⎯⎯⎯⎯ Unhandled Rejection ⎯⎯⎯⎯⎯
+CanceledError: canceled
+ ❯ AbortSignal.<anonymous> src/lib/fakeNetwork.js:102:16
+    100|         request.aborted = true;
+    101|         clearTimeout(timer);
+    102|         reject(new CanceledError(null, config, request));
+       |                ^
+    103|       });
+    104|     });
+ ❯ AbortSignal.callTheUserObjectsOperation node_modules/jsdom/lib/jsdom/living/generated/EventListener.js:26:30
+ ❯ innerInvokeEventListeners node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:350:25
+ ❯ invokeEventListeners node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:286:3
+ ❯ AbortSignalImpl._dispatch node_modules/jsdom/lib/jsdom/living/events/EventTarget-impl.js:233:9
+ ❯ fireAnEvent node_modules/jsdom/lib/jsdom/living/helpers/events.js:18:36
+ ❯ AbortSignalImpl._runAbortStep node_modules/jsdom/lib/jsdom/living/aborting/AbortSignal-impl.js:112:5
+ ❯ AbortSignalImpl._signalAbort node_modules/jsdom/lib/jsdom/living/aborting/AbortSignal-impl.js:99:10
+ ❯ AbortControllerImpl.abort node_modules/jsdom/lib/jsdom/living/aborting/AbortController-impl.js:11:17
+ ❯ AbortController.abort node_modules/jsdom/lib/jsdom/living/generated/AbortController.js:112:34
+ ❯ Axios.request ../../../cuarto%20ciclo/Labs%20empre/dae-s12-servicios-web-con-react/node_modules/axios/lib/core/Axios.js:80:43
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { description: undefined, number: undefined, config: { transitional: { silentJSONParsing: true, forcedJSONParsing: true, clarifyTimeoutError: false, legacyInterceptorReqResOrdering: true, advertiseZstdAcceptEncoding: false, validateStatusUndefinedResolves: true, encodeBasicAuthUsername: false }, adapter: 'Function<adapter>', transformRequest: [ 'Function<transformRequest>' ], transformResponse: [ 'Function<transformResponse>' ], timeout: 8000, xsrfCookieName: 'XSRF-TOKEN', xsrfHeaderName: 'X-XSRF-TOKEN', maxContentLength: -1, maxBodyLength: -1, env: { FormData: 'Function<FormData>', Blob: 'Function<Blob>' }, validateStatus: 'Function<validateStatus>', headers: { Accept: 'application/json' }, baseURL: 'http://localhost:8000/api', signal: {}, method: 'get', url: '/exams/', allowAbsoluteUrls: true }, code: 'ERR_CANCELED', status: undefined }
+This error originated in "src/test/api.test.js" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.
+The latest test that might've caused the error is "listExams entrega la señal a Axios: al abortar, la petición se cancela". It might mean one of the following:
+- The error was thrown, while Vitest was running this test.
+- If the error occurred after the test had been completed, this was the last documented test before it was thrown.
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
+
+ Test Files  6 passed (6)
+      Tests  67 passed (67)
+     Errors  1 error
+   Start at  16:57:15
+   Duration  3.88s (transform 242ms, setup 1.96s, collect 1.88s, tests 3.52s, environment 5.79s, prepare 1.62s)
+
